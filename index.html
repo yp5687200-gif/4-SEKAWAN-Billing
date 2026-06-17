@@ -3,24 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4 SEKAWAN - NETLAND.id - Core Billing & Map System v3.0</title>
+    <title>4 SEKAWAN - NETLAND.id - Core Billing System v3.1</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <style>
-        /* Desain kustom agar peta Leaflet serasi dengan tema dark mode Tailwind */
-        .leaflet-layer, .leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-popup-content-wrapper, .leaflet-popup-tip {
-            filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
-        }
-        .leaflet-popup-content-wrapper {
-            background-color: #111827 !important;
-            color: #f3f4f6 !important;
-            border: 1px solid #1f2937;
-        }
-    </style>
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans antialiased">
 
@@ -30,7 +15,7 @@
                 <span class="text-[10px] font-bold tracking-[0.3em] text-amber-400 uppercase bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 mb-1 w-max">4 SEKAWAN</span>
                 <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-blue-500 to-indigo-400 bg-clip-text text-transparent">NETLAND<span class="text-gray-200">.id</span></span>
             </div>
-            <span class="bg-blue-500/10 text-blue-400 text-xs px-2.5 py-1 rounded-md font-mono border border-blue-500/20 uppercase tracking-widest font-bold self-end mb-0.5">ISP CORE MAP & BILLING</span>
+            <span class="bg-blue-500/10 text-blue-400 text-xs px-2.5 py-1 rounded-md font-mono border border-blue-500/20 uppercase tracking-widest font-bold self-end mb-0.5">ISP CORE SYSTEM</span>
         </div>
         <div class="flex items-center space-x-3 text-sm">
             <button onclick="document.getElementById('importFile').click()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 px-3 py-1.5 rounded-lg cursor-pointer transition">📥 Impor Git DB</button>
@@ -62,7 +47,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="bg-gray-900 border border-gray-800 p-6 rounded-xl shadow-xl">
-                <h2 class="text-md font-bold mb-4 tracking-wide text-gray-200 border-b border-gray-800 pb-2 flex items-center gap-2">🟢 REGISTRASI USER & GEOLOKASI</h2>
+                <h2 class="text-md font-bold mb-4 tracking-wide text-gray-200 border-b border-gray-800 pb-2 flex items-center gap-2">🟢 REGISTRASI USER BARU</h2>
                 <form id="billingForm" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Nama Pelanggan (ID-PPPoE)</label>
@@ -85,46 +70,17 @@
                             <input type="text" id="odpName" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 transition" placeholder="ODP-MGR-01">
                         </div>
                     </div>
-                    
-                    <div class="border border-gray-800 p-3 rounded-lg bg-gray-950/50 space-y-3">
-                        <span class="text-xs font-bold text-blue-400 block tracking-wider uppercase">📍 Titik Koordinat (Peta Google/WA)</span>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-0.5">Latitude Rumah</label>
-                                <input type="text" id="latPelanggan" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" placeholder="-6.2088">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-0.5">Longitude Rumah</label>
-                                <input type="text" id="lngPelanggan" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" placeholder="106.8456">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-0.5">Latitude ODP</label>
-                                <input type="text" id="latOdp" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" placeholder="-6.2090">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-0.5">Longitude ODP</label>
-                                <input type="text" id="lngOdp" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" placeholder="106.8460">
-                            </div>
-                        </div>
-                    </div>
-
                     <div>
                         <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Tanggal Mulai Langganan</label>
                         <input type="date" id="tanggalMulai" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-blue-500 transition">
                     </div>
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow-lg shadow-blue-500/10 cursor-pointer transition">🚀 Aktifkan & Simpan Nodes</button>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow-lg shadow-blue-500/10 cursor-pointer transition">🚀 Aktifkan & Simpan</button>
                 </form>
             </div>
 
-            <div class="bg-gray-900 border border-gray-800 p-6 rounded-xl shadow-xl lg:col-span-2 flex flex-col space-y-4">
-                <div>
-                    <h2 class="text-md font-bold tracking-wide text-gray-200 border-b border-gray-800 pb-2">🗺️ BILLING NETWORK GIS MAPS (ODP & USER ROUTING)</h2>
-                </div>
-                <div id="map" class="w-full h-80 rounded-lg border border-gray-800 shadow-inner"></div>
-                
-                <div class="h-44">
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-xl shadow-xl lg:col-span-2 flex flex-col justify-between">
+                <h2 class="text-md font-bold mb-2 tracking-wide text-gray-200 border-b border-gray-800 pb-2">📊 ANALISIS DISTRIBUSI LAYANAN</h2>
+                <div class="h-64 flex justify-center items-center">
                     <canvas id="ispChart"></canvas>
                 </div>
             </div>
@@ -158,37 +114,32 @@
 
     <script>
         let ispChartInstance = null;
-        let map = null;
-        let layerGroup = null;
 
-        // Inisialisasi Peta Leaflet pertama kali saat web dibuka
-        function initMap() {
-            // Default koordinat pusat peta ke Jakarta (Bisa disesuaikan otomatis dari data pertama)
-            map = L.map('map').setView([-6.2088, 106.8456], 15);
-            
-            // Menggunakan Tile layer OpenStreetMap Gratis & Open Source
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-
-            layerGroup = L.layerGroup().addTo(map);
+        // Fungsi Sinkronisasi ke Gateway Node.js MikroTik
+        function kirimSinyalMikrotik(username, aksi) {
+            fetch(`http://localhost:3000/api/mikrotik/${aksi}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: username })
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(`[MikroTik Sync] ${data.message}`);
+            })
+            .catch(err => {
+                console.error("Gagal terhubung ke server gateway MikroTik:", err);
+            });
         }
 
         // Set default input tanggal ke hari ini
         document.getElementById('tanggalMulai').value = new Date().toISOString().substring(0, 10);
 
-        // Event Form Submit
         document.getElementById('billingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const nama = document.getElementById('nama').value;
             let whatsapp = document.getElementById('whatsapp').value;
             const paketRaw = document.getElementById('paket').value.split('|');
             const odpName = document.getElementById('odpName').value;
-            const latPelanggan = parseFloat(document.getElementById('latPelanggan').value);
-            const lngPelanggan = parseFloat(document.getElementById('lngPelanggan').value);
-            const latOdp = parseFloat(document.getElementById('latOdp').value);
-            const lngOdp = parseFloat(document.getElementById('lngOdp').value);
             const tanggalMulai = document.getElementById('tanggalMulai').value;
 
             if (whatsapp.startsWith('0')) whatsapp = '62' + whatsapp.slice(1);
@@ -200,8 +151,6 @@
                 namaPaket: paketRaw[0].replace('_', ' '),
                 harga: parseInt(paketRaw[1]),
                 odpName,
-                latPelanggan, lngPelanggan,
-                latOdp, lngOdp,
                 tanggalMulai: tanggalMulai
             };
 
@@ -209,21 +158,15 @@
             database.push(dataBaru);
             localStorage.setItem('netland_isp_db', JSON.stringify(database));
 
-            // Reset form input standar saja (koordinat biarkan terisi untuk mempermudah pendaftaran area sekitar)
             document.getElementById('nama').value = '';
             document.getElementById('whatsapp').value = '';
-            
             processEngine();
         });
 
-        // Core Engine Utama
         function processEngine() {
             const database = JSON.parse(localStorage.getItem('netland_isp_db')) || [];
             const tabel = document.getElementById('tabelPelanggan');
             tabel.innerHTML = '';
-
-            // Bersihkan marker peta lama sebelum digambar ulang
-            if(layerGroup) layerGroup.clearLayers();
 
             let omset = 0;
             let countAktif = 0;
@@ -232,7 +175,6 @@
             let countFamily = 0;
 
             const hariIni = new Date();
-            let mapBounds = [];
 
             if (database.length === 0) {
                 tabel.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-gray-600 tracking-wide">Belum ada node data pelanggan yang terdeteksi di server lokal ini.</td></tr>`;
@@ -246,15 +188,15 @@
                 if(p.namaPaket.includes("Basic")) countBasic++;
                 if(p.namaPaket.includes("Family")) countFamily++;
 
-                // Hitung Masa Aktif & Blokir Otomatis
+                // Logika Masa Aktif & Auto Isolir 30 Hari
                 const tglAwal = new Date(p.tanggalMulai);
                 const tglJatuhTempo = new Date(tglAwal.getTime() + (30 * 24 * 60 * 60 * 1000));
+                
                 const selisihWaktu = tglJatuhTempo - hariIni;
                 const sisaHari = Math.ceil(selisihWaktu / (1000 * 60 * 60 * 24));
 
                 let statusBadge = '';
                 let sisaHariText = '';
-                let colorMarker = '#10b981'; // Hijau untuk yang aktif
 
                 if (sisaHari > 0) {
                     countAktif++;
@@ -264,49 +206,12 @@
                     countIsolir++;
                     statusBadge = `<span class="bg-rose-500/10 text-rose-500 border border-rose-500/20 text-xs font-bold font-mono px-2.5 py-0.5 rounded-md">⛔ BLOCKED (ISOLIR)</span>`;
                     sisaHariText = `<span class="text-rose-500 font-mono font-bold">EXPIRED</span>`;
-                    colorMarker = '#1f2937'; // Hitam/Gelap untuk yang terisolir
+                    
+                    // Otomatis kirim sinyal isolir ke router jika masa aktif habis
+                    kirimSinyalMikrotik(p.nama, 'isolir');
                 }
 
-                // LOGIKA MAPS: Plot Marker dan Tarik Jalur Drop Core Kabel
-                if(p.latPelanggan && p.lngPelanggan && p.latOdp && p.lngOdp) {
-                    // 1. Tambah Marker Rumah Pelanggan
-                    const customerMarker = L.circleMarker([p.latPelanggan, p.lngPelanggan], {
-                        radius: 7,
-                        fillColor: colorMarker,
-                        color: "#fff",
-                        weight: 1.5,
-                        fillOpacity: 1
-                    }).bindPopup(`<b>Pelanggan:</b> ${p.nama}<br><b>Paket:</b> ${p.namaPaket}<br><b>ODP:</b> ${p.odpName}`);
-                    layerGroup.addLayer(customerMarker);
-
-                    // 2. Tambah Marker Kotak ODP (Merah)
-                    const odpMarker = L.circleMarker([p.latOdp, p.lngOdp], {
-                        radius: 8,
-                        fillColor: '#ef4444', // Merah Terang
-                        color: "#fff",
-                        weight: 2,
-                        fillOpacity: 1
-                    }).bindPopup(`<b>KOTAK DISTRIBUSI ODP:</b><br><span style="color:#f59e0b;font-weight:bold">${p.odpName}</span>`);
-                    layerGroup.addLayer(odpMarker);
-
-                    // 3. Tarik Jalur Kabel dari ODP ke Rumah User
-                    const ruteKabel = L.polyline([
-                        [p.latPelanggan, p.lngPelanggan],
-                        [p.latOdp, p.lngOdp]
-                    ], {
-                        color: '#3b82f6', // Jalur kabel berwarna biru cerah
-                        weight: 2,
-                        dashArray: '5, 5', // Efek garis putus-putus representasi FO
-                        opacity: 0.7
-                    });
-                    layerGroup.addLayer(ruteKabel);
-
-                    // Simpan koordinat untuk memfokuskan peta otomatis nanti
-                    mapBounds.push([p.latPelanggan, p.lngPelanggan]);
-                    mapBounds.push([p.latOdp, p.lngOdp]);
-                }
-
-                // WhatsApp Formatter Teks Struk
+                // Struktur Teks Pesan WhatsApp
                 const formatRupiah = (angka) => "Rp " + angka.toLocaleString('id-ID');
                 const pesanWA = encodeURIComponent(
                     `*STRUK KONTAN RESMI 4 SEKAWAN - NETLAND.id*\n\n` +
@@ -341,11 +246,6 @@
 
             updateCounters(omset, database.length, countAktif, countIsolir);
             renderChart(countBasic, countFamily);
-
-            // Supaya peta otomatis memperbesar/memperkecil area fokus sesuai jangkauan semua titik koordinat pelanggan Anda
-            if(mapBounds.length > 0 && map) {
-                map.fitBounds(mapBounds, { padding: [30, 30] });
-            }
         }
 
         function updateCounters(omset, total, aktif, isolir) {
@@ -357,12 +257,22 @@
 
         function perpanjangUser(id) {
             let database = JSON.parse(localStorage.getItem('netland_isp_db')) || [];
+            let userTarget = null;
+
             database = database.map(p => {
-                if(p.id === id) p.tanggalMulai = new Date().toISOString().substring(0, 10);
+                if(p.id === id) {
+                    p.tanggalMulai = new Date().toISOString().substring(0, 10);
+                    userTarget = p;
+                }
                 return p;
             });
             localStorage.setItem('netland_isp_db', JSON.stringify(database));
             processEngine();
+
+            // Kirim sinyal buka isolir (online) ke MikroTik fisik via Gateway
+            if (userTarget) {
+                kirimSinyalMikrotik(userTarget.nama, 'online');
+            }
         }
 
         function hapusUser(id) {
@@ -408,13 +318,15 @@
 
         function renderChart(basic, family) {
             const ctx = document.getElementById('ispChart').getContext('2d');
-            if (ispChartInstance) ispChartInstance.destroy();
+            if (ispChartInstance) {
+                ispChartInstance.destroy();
+            }
             ispChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['Paket Basic (30 Mbps)', 'Paket Family (50 Mbps)'],
                     datasets: [{
-                        label: 'Jumlah Pelanggan',
+                        label: 'Jumlah Pelanggan Terpasang',
                         data: [basic, family],
                         backgroundColor: ['rgba(59, 130, 246, 0.6)', 'rgba(147, 51, 234, 0.6)'],
                         borderColor: ['#3b82f6', '#9333ea'],
@@ -434,11 +346,7 @@
             });
         }
 
-        // Jalankan peta dan mesin utama saat website dimuat pertama kali
-        window.onload = function() {
-            initMap();
-            processEngine();
-        }
+        processEngine();
     </script>
 </body>
 </html>
